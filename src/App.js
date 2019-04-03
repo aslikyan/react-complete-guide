@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './App.css'
 import Person from './Person/Person'
+import ValidationComponent from './Person/ValidationComponent'
 
 class App extends Component {
   state = {
@@ -9,7 +10,8 @@ class App extends Component {
       {name: 'Annie', age: '25'},
       {name: 'Leo', age: '12'}
     ],
-    showPersons: false
+    showPersons: false,
+    charCount: null
   };
   switchNameHandler = (newName) => {
     this.setState({
@@ -32,6 +34,13 @@ class App extends Component {
   togglePersonsHandler = () => {
     this.setState(
       {showPersons: !this.state.showPersons}
+    )
+  }
+  charCount = (event) => {
+    const chars = event.target.value;
+    const charCount = chars.length;
+    this.setState(
+      {charCount: charCount}
     )
   }
   render(){
@@ -58,7 +67,13 @@ class App extends Component {
         age={this.state.persons[2].age}/>
       </div>
       )
-    } 
+    }
+
+    let countElement = (
+      <div>
+        <span>{this.state.charCount}</span>
+      </div>
+    );
     return (
       <div className="App">
         <h1>Hi components who are you?</h1>
@@ -68,6 +83,18 @@ class App extends Component {
         {!this.state.showPersons ? 'Show Persons' : 'Hide Persons'}
         </button>
         {persons}
+        <div>
+          <div>
+            <span>This is task for the practice</span>
+          </div>
+          <input type={'text'} onChange={this.charCount}/>
+          <div>
+            {countElement}
+          </div>
+          <div>
+            <ValidationComponent length = {this.state.charCount}/>
+          </div>
+        </div>
       </div>
     )
   }
